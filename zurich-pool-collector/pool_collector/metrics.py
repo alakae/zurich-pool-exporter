@@ -5,7 +5,6 @@ from prometheus_client import Gauge, start_http_server
 from config import AppConfig, PoolConfig
 
 
-
 logger = logging.getLogger(__name__)
 
 
@@ -68,7 +67,9 @@ class PoolMetrics:
             occupancy_percentage = (current_fill / max_space) * 100
 
         # Update Prometheus metrics
-        self.current_fill.labels(pool_uid=pool_uid, pool_name=pool_name).set(current_fill)
+        self.current_fill.labels(pool_uid=pool_uid, pool_name=pool_name).set(
+            current_fill
+        )
         self.free_space.labels(pool_uid=pool_uid, pool_name=pool_name).set(free_space)
         self.max_space.labels(pool_uid=pool_uid, pool_name=pool_name).set(max_space)
         self.occupancy_percentage.labels(pool_uid=pool_uid, pool_name=pool_name).set(
