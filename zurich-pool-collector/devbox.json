@@ -21,6 +21,9 @@
       ],
       "isort": [
         "isort --skip .venv --skip .devbox ${@:-.}"
+      ],
+      "run": [
+        "poetry run python pool_collector/main.py"
       ]
     }
   }
