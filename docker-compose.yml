@@ -1,0 +1,22 @@
+services:
+  collector:
+    build:
+      context: ./zurich-pool-collector
+    container_name: pool-collector
+    restart: unless-stopped
+    ports:
+      - "3000:8000"  # Expose metrics port
+    volumes:
+      - ./zurich-pool-collector/config.yml:/code/config.yml:ro
+    networks:
+      - pool-network
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  pool-network:
+    name: pool-network
+    driver: bridge
