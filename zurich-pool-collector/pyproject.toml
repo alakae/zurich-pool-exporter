@@ -1,0 +1,27 @@
+[project]
+name = "pool-collector"
+version = "0.0.1"
+description = "Data collector for Zürich swimming pool occupancy"
+authors = [
+    {name = "Your Name",email = "you@example.com"}
+]
+readme = "README.md"
+packages = [{include = "pool_collector"}]
+requires-python = ">=3.13"
+dependencies = [
+    "websockets (>=15.0.1,<16.0.0)",
+    "prometheus-client (>=0.21.1,<0.22.0)",
+    "pyyaml (>=6.0.2,<7.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.15.0"
+pytest = "^8.3.5"
+black = "^25.1.0"
+isort = "^6.0.1"
+
