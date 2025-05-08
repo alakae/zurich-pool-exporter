@@ -1,0 +1,25 @@
+# WebSocket connection parameters
+websocket:
+  url: "wss://badi-public.crowdmonitor.ch:9591/api"
+  retry_interval_seconds: 30
+  timeout_seconds: 10
+  ping_interval_seconds: 20
+  ping_timeout_seconds: 10
+
+# Prometheus metrics
+metrics:
+  port: 8000
+  endpoint: "/metrics"
+  namespace: "zurich_pools"
+
+# Pools to monitor (can add/remove as needed)
+pools:
+  - uid: "SSD-11"
+    name: "Freibad Seebach"
+  - uid: "SSD-7"
+    name: "Hallenbad Oerlikon"
+
+# Logging configuration
+logging:
+  level: "DEBUG"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
