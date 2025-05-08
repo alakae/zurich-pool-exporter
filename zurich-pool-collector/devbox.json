@@ -6,7 +6,8 @@
   ],
   "shell": {
     "init_hook": [
-      ". $VENV_DIR/bin/activate"
+      ". $VENV_DIR/bin/activate",
+      "poetry install --no-interaction"
     ],
     "scripts": {
       "test": [
@@ -17,6 +18,9 @@
       ],
       "black": [
         "black ${@:-.}"
+      ],
+      "isort": [
+        "isort --skip .venv --skip .devbox ${@:-.}"
       ]
     }
   }

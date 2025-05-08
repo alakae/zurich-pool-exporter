@@ -1,9 +1,8 @@
 import logging
 from typing import Dict, Set
 
+from config import AppConfig
 from prometheus_client import Gauge, start_http_server
-from config import AppConfig, PoolConfig
-
 
 logger = logging.getLogger(__name__)
 

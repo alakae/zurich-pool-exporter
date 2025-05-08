@@ -1,15 +1,12 @@
-from websockets import ClientConnection
-
 import asyncio
 import json
 import logging
-from typing import Dict, List, Optional
 
 import websockets
-from websockets.exceptions import ConnectionClosed, WebSocketException
-
 from config import AppConfig
 from metrics import PoolMetrics
+from websockets import ClientConnection
+from websockets.exceptions import ConnectionClosed, WebSocketException
 
 logger = logging.getLogger(__name__)
 
