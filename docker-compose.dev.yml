@@ -1,0 +1,33 @@
+services:
+  collector:
+    build:
+      tags:
+        - alakae/badi-meter-collector
+    ports:
+      - "8000:8000"  # Expose metrics port for development
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  prometheus:
+    ports:
+      - "8090:9090"  # Expose Prometheus UI in development
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  grafana:
+    ports:
+      - "3000:3000"  # Expose Grafana UI in development
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin  # Simple password for dev
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
