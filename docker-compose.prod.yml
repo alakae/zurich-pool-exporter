@@ -26,3 +26,26 @@ services:
       options:
         max-size: "50m"
         max-file: "5"
+
+  caddy:
+    image: caddy:2.7.6
+    container_name: caddy-proxy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"  # For HTTP/3 support
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks:
+      - pool-network
+    depends_on:
+      - grafana
+      - prometheus
+      - collector
+
+volumes:
+  caddy_data:
+  caddy_config:
