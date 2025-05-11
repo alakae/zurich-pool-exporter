@@ -1,7 +1,5 @@
 services:
   collector:
-    build:
-      context: ./zurich-pool-collector
     container_name: pool-collector
     restart: unless-stopped
     volumes:
