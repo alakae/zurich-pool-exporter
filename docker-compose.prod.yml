@@ -45,6 +45,11 @@ services:
       - grafana
       - prometheus
       - collector
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "5"
 
 volumes:
   caddy_data:
