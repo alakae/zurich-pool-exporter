@@ -6,12 +6,19 @@ import yaml
 
 
 @dataclass
-class WebSocketConfig:
+class OccupancyConfig:
     url: str
     retry_interval_seconds: int
     timeout_seconds: int
     ping_interval_seconds: float
     ping_timeout_seconds: float
+
+
+@dataclass
+class TemperatureConfig:
+    url: str
+    poll_interval_seconds: int
+    timeout_seconds: int
 
 
 @dataclass
@@ -25,6 +32,7 @@ class MetricsConfig:
 class PoolConfig:
     uid: str
     name: str
+    alt_uid: str | None = None
 
 
 @dataclass
@@ -35,7 +43,8 @@ class LoggingConfig:
 
 @dataclass
 class AppConfig:
-    websocket: WebSocketConfig
+    occupancy: OccupancyConfig
+    temperature: TemperatureConfig
     metrics: MetricsConfig
     pools: List[PoolConfig]
     logging: LoggingConfig
@@ -53,7 +62,8 @@ def load_config(config_path: Optional[Path] = None) -> AppConfig:
         config_data = yaml.safe_load(f)
 
     return AppConfig(
-        websocket=WebSocketConfig(**config_data["websocket"]),
+        occupancy=OccupancyConfig(**config_data["occupancy"]),
+        temperature=TemperatureConfig(**config_data["temperature"]),
         metrics=MetricsConfig(**config_data["metrics"]),
         pools=[PoolConfig(**pool) for pool in config_data["pools"]],
         logging=LoggingConfig(**config_data["logging"]),

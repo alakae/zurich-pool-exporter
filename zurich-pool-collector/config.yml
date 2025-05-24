@@ -1,10 +1,16 @@
 # WebSocket connection parameters
-websocket:
+occupancy:
   url: "wss://badi-public.crowdmonitor.ch:9591/api"
   retry_interval_seconds: 30
   timeout_seconds: 10
   ping_interval_seconds: 20
   ping_timeout_seconds: 10
+
+# Temperature data collection parameters
+temperature:
+  url: "https://www.stadt-zuerich.ch/stzh/bathdatadownload"
+  poll_interval_seconds: 3600  # 1 hour
+  timeout_seconds: 30
 
 # Prometheus metrics
 metrics:
@@ -29,6 +35,7 @@ pools:
   - uid: "fb012"
     name: "Freibad Heuried"
   - uid: "SSD-11"
+    alt_uid: "fb013"
     name: "Freibad Seebach"
   - uid: "fb018"
     name: "Freibad Zwischen den Hölzern"
@@ -41,12 +48,14 @@ pools:
   - uid: "SSD-4"
     name: "Hallenbad City"
   - uid: "SSD-6"
+    alt_uid: "hb006"
     name: "Hallenbad Leimbach"
   - uid: "SSD-7"
     name: "Hallenbad Oerlikon"
   - uid: "SSD-8"
     name: "Josel-Areal"
   - uid: "SSD-10"
+    alt_uid: "seb6945"
     name: "Seebad Utoquai"
   - uid: "SSD-5"
     name: "Waermebad Kaeferberg"

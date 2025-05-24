@@ -1,5 +1,5 @@
 import logging
-from typing import Dict, Set
+from typing import Dict, Mapping, Set
 
 from config import AppConfig
 from prometheus_client import Gauge, start_http_server
@@ -8,12 +8,16 @@ logger = logging.getLogger(__name__)
 
 
 class PoolMetrics:
-    """Prometheus metrics for pool occupancy data."""
+    """Prometheus metrics for pool occupancy and temperature data."""
 
     def __init__(self, config: AppConfig):
         self.config = config
         self.namespace = config.metrics.namespace
         self.pool_uids: Set[str] = {pool.uid for pool in config.pools}
+        self.pool_names: Set[str] = {pool.name for pool in config.pools}
+        self.pool_alt_uid_to_uid: Mapping[str, str] = {
+            pool.alt_uid: str(pool.uid) for pool in self.config.pools if pool.alt_uid
+        }
 
         # Create Prometheus metrics
         self.current_fill = Gauge(
@@ -40,6 +44,12 @@ class PoolMetrics:
             ["pool_uid", "pool_name"],
         )
 
+        self.water_temperature = Gauge(
+            f"{self.namespace}_water_temperature",
+            "Water temperature of the pool in degrees Celsius",
+            ["pool_uid", "pool_name"],
+        )
+
     def start_metrics_server(self) -> None:
         """Start Prometheus metrics HTTP server."""
         start_http_server(self.config.metrics.port)
@@ -47,8 +57,8 @@ class PoolMetrics:
             f"Metrics server started at http://localhost:{self.config.metrics.port}{self.config.metrics.endpoint}"
         )
 
-    def update_pool_metrics(self, pool_data: Dict) -> None:
-        """Update metrics for a single pool."""
+    def update_occupancy_metrics(self, pool_data: Dict) -> None:
+        """Update occupancy metrics for a single pool."""
         pool_uid = pool_data.get("uid")
         if not pool_uid or pool_uid not in self.pool_uids:
             return
@@ -80,3 +90,24 @@ class PoolMetrics:
             f"current: {current_fill}, free: {free_space}, max: {max_space}, "
             f"occupancy: {occupancy_percentage:.1f}%"
         )
+
+    def update_temperature_metrics(self, pool_data: Dict) -> None:
+        """Update temperature metrics for a single pool."""
+        pool_uid = pool_data.get("pool_id")
+        if not pool_uid:
+            logger.warning(f"{pool_data} does not contain a pool_id, skipping")
+            return
+
+        pool_uid = self.pool_alt_uid_to_uid.get(pool_uid, pool_uid)
+        pool_name = pool_data.get("title")
+        if pool_uid not in self.pool_uids and pool_name not in self.pool_names:
+            return
+
+        temperature = pool_data.get("temperature")
+        if temperature is not None:
+            self.water_temperature.labels(pool_uid=pool_uid, pool_name=pool_name).set(
+                temperature
+            )
+            logger.debug(
+                f"Updated temperature for pool {pool_name} (ID: {pool_uid}): {temperature}°C"
+            )

@@ -11,17 +11,17 @@ from websockets.exceptions import ConnectionClosed, WebSocketException
 logger = logging.getLogger(__name__)
 
 
-class PoolDataCollector:
+class OccupancyCollector:
     """Collects data from the Zürich swimming pool WebSocket API."""
 
     def __init__(self, config: AppConfig, metrics: PoolMetrics):
         self.config = config
         self.metrics = metrics
-        self.websocket_url = config.websocket.url
-        self.retry_interval = config.websocket.retry_interval_seconds
-        self.open_timeout = config.websocket.timeout_seconds
-        self.ping_interval = config.websocket.ping_interval_seconds
-        self.ping_timeout = config.websocket.ping_timeout_seconds
+        self.websocket_url = config.occupancy.url
+        self.retry_interval = config.occupancy.retry_interval_seconds
+        self.open_timeout = config.occupancy.timeout_seconds
+        self.ping_interval = config.occupancy.ping_interval_seconds
+        self.ping_timeout = config.occupancy.ping_timeout_seconds
         self.running = False
 
     async def connect_websocket(self) -> ClientConnection | None:
@@ -55,7 +55,7 @@ class PoolDataCollector:
 
             # Update metrics for each pool
             for pool_data in data:
-                self.metrics.update_pool_metrics(pool_data)
+                self.metrics.update_occupancy_metrics(pool_data)
         except json.JSONDecodeError:
             logger.error(f"Failed to parse JSON from message: {message[:100]}")
         except Exception as e:
@@ -64,7 +64,8 @@ class PoolDataCollector:
     async def run(self) -> None:
         """Run the data collector loop."""
         self.running = True
-        self.metrics.start_metrics_server()
+
+        logger.info("Pool occupancy collector started")
 
         while self.running:
             websocket = await self.connect_websocket()
@@ -99,7 +100,9 @@ class PoolDataCollector:
                     logger.info(f"Reconnecting in {self.retry_interval} seconds...")
                     await asyncio.sleep(self.retry_interval)
 
+        logger.info("Pool occupancy collector stopped")
+
     def stop(self) -> None:
         """Stop the data collector."""
-        logger.info("Stopping data collector")
+        logger.info("Stopping pool occupancy collector")
         self.running = False
