@@ -3,7 +3,7 @@ services:
     build:
       context: ./zurich-pool-collector
       tags:
-        - alakae/badi-meter-collector
+        - docker.io/alakae/zurich-pool-collector:0.0.1
     ports:
       - "8000:8000"  # Expose metrics port for development
     logging:
