@@ -43,15 +43,20 @@ pools:
     name: "Hallenbad Altstetten"
   - uid: "SSD-2"
     name: "Hallenbad Blaesi"
+    hardcoded_temperatur: 29
   - uid: "SSD-3"
     name: "Hallenbad Bungertwies"
+    hardcoded_temperatur: 29
   - uid: "SSD-4"
     name: "Hallenbad City"
+    hardcoded_temperatur: 28
   - uid: "SSD-6"
     alt_uid: "hb006"
     name: "Hallenbad Leimbach"
+    hardcoded_temperatur: 29
   - uid: "SSD-7"
     name: "Hallenbad Oerlikon"
+    hardcoded_temperatur: 28
   - uid: "SSD-8"
     name: "Josel-Areal"
   - uid: "SSD-10"
@@ -59,6 +64,7 @@ pools:
     name: "Seebad Utoquai"
   - uid: "SSD-5"
     name: "Waermebad Kaeferberg"
+    hardcoded_temperatur: 32
 
 # Logging configuration
 logging:

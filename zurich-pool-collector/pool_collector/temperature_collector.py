@@ -20,6 +20,7 @@ class TemperatureCollector:
         self.poll_interval = config.temperature.poll_interval_seconds
         self.timeout = config.temperature.timeout_seconds
         self.running = False
+        self._publish_hard_coded()
 
     async def fetch_temperature_data(self) -> Optional[str]:
         """Fetch temperature data from the XML API."""
@@ -154,3 +155,14 @@ class TemperatureCollector:
         """Stop the temperature collector."""
         logger.info("Stopping temperature collector")
         self.running = False
+
+    def _publish_hard_coded(self):
+        for pool in self.config.pools:
+            if not pool.hardcoded_temperatur:
+                continue
+            data = {
+                "pool_id": pool.uid,
+                "title": pool.name,
+                "temperature": pool.hardcoded_temperatur,
+            }
+            self.metrics.update_temperature_metrics(data)
