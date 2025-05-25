@@ -33,4 +33,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY pool_exporter /code/pool_exporter
 
+# Create non-root user
+RUN useradd --create-home --shell /bin/bash app && \
+    chown -R app:app /code
+USER app
+
 CMD ["python", "pool_exporter/main.py"]
