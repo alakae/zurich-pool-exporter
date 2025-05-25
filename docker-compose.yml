@@ -5,7 +5,7 @@ services:
     volumes:
       - ./config.yml:/code/config.yml:ro
     healthcheck:
-      test: ["CMD", "devbox", "run", "--", "poetry", "run", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/metrics')"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/metrics')"]
       interval: 30s
       timeout: 10s
       retries: 3

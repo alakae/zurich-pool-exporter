@@ -1,6 +1,7 @@
-FROM jetpackio/devbox:latest
+FROM jetpackio/devbox:latest AS requirements-export
 
-# Installing your devbox project
+# Build stage that generates requirements.txt from pyproject.toml
+# We use devbox as base to avoid dependency version conflicts
 WORKDIR /code
 USER root:root
 RUN mkdir -p /code && chown ${DEVBOX_USER}:${DEVBOX_USER} /code
@@ -11,15 +12,25 @@ COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} devbox.lock devbox.lock
 # Install devbox packages
 RUN devbox install
 
-# Copy project files including pyproject.toml
+# Copy only files needed for requirements.txt generation
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml .
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md .
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pool_exporter ./pool_exporter
 
-RUN devbox run -- poetry install --no-interaction --without dev
+# Export production dependencies only
+RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
 
-# Clean up
-RUN nix-store --gc
-RUN nix-store --optimise
+# Lightweight production image
+FROM python:3.13-slim
+ENV PYTHONUNBUFFERED=1
 
-CMD ["devbox", "run", "--", "python", "pool_exporter/main.py"]
+WORKDIR /code
+
+# Install production dependencies from previous stage
+COPY --from=requirements-export /code/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy application code
+COPY pool_exporter /code/pool_exporter
+
+CMD ["python", "pool_exporter/main.py"]
