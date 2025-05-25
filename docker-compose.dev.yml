@@ -1,9 +1,9 @@
 services:
   collector:
     build:
-      context: ./zurich-pool-collector
+      context: .
       tags:
-        - docker.io/alakae/zurich-pool-collector:0.0.1
+        - docker.io/alakae/zurich-pool-collector:latest
     ports:
       - "8000:8000"  # Expose metrics port for development
     logging:
