@@ -26,6 +26,9 @@
       "mdformat": [
         "mdformat ${@:-.}"
       ],
+      "docker-build": [
+        "docker build -t docker.io/alakae/zurich-pool-exporter:latest ."
+      ],
       "run": [
         "poetry run python pool_collector/main.py"
       ]

@@ -65,6 +65,9 @@ devbox run black
 devbox run isort
 devbox run mdformat
 
+# Build container
+devbox run docker-build
+
 # Run tests
 devbox run test
 ```
