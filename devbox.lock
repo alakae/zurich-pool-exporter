@@ -5,6 +5,53 @@
       "last_modified": "2025-05-07T00:09:58Z",
       "resolved": "github:NixOS/nixpkgs/b3582c75c7f21ce0b429898980eddbbf05c68e55?lastModified=1746576598&narHash=sha256-FshoQvr6Aor5SnORVvh%2FZdJ1Sa2U4ZrIMwKBX5k2wu0%3D"
     },
+    "mdformat@latest": {
+      "last_modified": "2025-05-16T20:19:48Z",
+      "resolved": "github:NixOS/nixpkgs/12a55407652e04dcf2309436eb06fef0d3713ef3#mdformat",
+      "source": "devbox-search",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9qrwr700yz52km7x7bq5l7hbx8y40vrz-mdformat-wrapped",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/9qrwr700yz52km7x7bq5l7hbx8y40vrz-mdformat-wrapped"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3p0d24yz60s91cyfza5p8k1glrz8gand-mdformat-wrapped",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/3p0d24yz60s91cyfza5p8k1glrz8gand-mdformat-wrapped"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/x2iixdzqrii7xxzgwny85fg4q7n84lj6-mdformat-wrapped",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/x2iixdzqrii7xxzgwny85fg4q7n84lj6-mdformat-wrapped"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/spkzpl5kdrz99pv2rds6x833qh8rvv1y-mdformat-wrapped",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/spkzpl5kdrz99pv2rds6x833qh8rvv1y-mdformat-wrapped"
+        }
+      }
+    },
     "poetry@latest": {
       "last_modified": "2025-05-04T04:25:16Z",
       "plugin_version": "0.0.4",

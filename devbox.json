@@ -2,7 +2,8 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.2/.schema/devbox.schema.json",
   "packages": [
     "python@3.13",
-    "poetry@latest"
+    "poetry@latest",
+    "mdformat@latest"
   ],
   "shell": {
     "init_hook": [
@@ -21,6 +22,9 @@
       ],
       "isort": [
         "isort --skip .venv --skip .devbox ${@:-.}"
+      ],
+      "mdformat": [
+        "mdformat ${@:-.}"
       ],
       "run": [
         "poetry run python pool_collector/main.py"
