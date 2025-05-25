@@ -14,7 +14,7 @@ RUN devbox install
 # Copy project files including pyproject.toml
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml .
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pool_collector ./pool_collector
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pool_exporter ./pool_exporter
 
 RUN devbox run -- poetry install --no-interaction --without dev
 
@@ -22,4 +22,4 @@ RUN devbox run -- poetry install --no-interaction --without dev
 RUN nix-store --gc
 RUN nix-store --optimise
 
-CMD ["devbox", "run", "--", "python", "pool_collector/main.py"]
+CMD ["devbox", "run", "--", "python", "pool_exporter/main.py"]

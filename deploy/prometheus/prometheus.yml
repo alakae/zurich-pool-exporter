@@ -6,5 +6,5 @@ global:
 scrape_configs:
   - job_name: 'pool-collector'
     static_configs:
-      - targets: ['collector:8000']
+      - targets: ['exporter:8000']
     metrics_path: /metrics

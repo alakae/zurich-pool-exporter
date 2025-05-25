@@ -1,6 +1,6 @@
 services:
-  collector:
-    container_name: pool-collector
+  exporter:
+    container_name: pool-exporter
     restart: unless-stopped
     volumes:
       - ./config.yml:/code/config.yml:ro
@@ -29,7 +29,7 @@ services:
     networks:
       - pool-network
     depends_on:
-      - collector
+      - exporter
 
   grafana:
     image: grafana/grafana:12.0.0

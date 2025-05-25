@@ -1,7 +1,7 @@
 [project]
-name = "pool-collector"
+name = "pool-exporter"
 version = "0.0.1"
-description = "Data collector for Zürich swimming pool occupancy"
+description = "Data exporter for Zürich swimming pool occupancy"
 authors = [
     {name = "Your Name",email = "you@example.com"}
 ]
