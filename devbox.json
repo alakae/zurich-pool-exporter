@@ -3,7 +3,8 @@
   "packages": [
     "python@3.13",
     "poetry@latest",
-    "mdformat@latest"
+    "mdformat@latest",
+    "dprint@latest"
   ],
   "shell": {
     "init_hook": [
