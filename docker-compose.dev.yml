@@ -3,7 +3,7 @@ services:
     build:
       context: .
       tags:
-        - docker.io/alakae/zurich-pool-exporter:latest
+        - docker.io/alakae/zurich-pool-exporter:dev
     ports:
       - "8000:8000"  # Expose metrics port for development
     logging:
