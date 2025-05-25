@@ -27,7 +27,7 @@
         "mdformat ${@:-.}"
       ],
       "docker-build": [
-        "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml -f docker-bake.hcl"
+        "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml"
       ],
       "run": [
         "poetry run python pool_collector/main.py"

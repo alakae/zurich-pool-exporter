@@ -4,6 +4,9 @@ services:
       context: .
       tags:
         - docker.io/alakae/zurich-pool-exporter:dev
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
     ports:
       - "8000:8000"  # Expose metrics port for development
     logging:
