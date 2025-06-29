@@ -18,6 +18,10 @@ class PoolMetrics:
         self.pool_alt_uid_to_uid: Mapping[str, str] = {
             pool.alt_uid: str(pool.uid) for pool in self.config.pools if pool.alt_uid
         }
+        self.pool_uid_to_name: Mapping[str, str] = {
+            pool.uid: pool.name for pool in self.config.pools
+        }
+
 
         # Create Prometheus metrics
         self.current_fill = Gauge(
@@ -63,7 +67,7 @@ class PoolMetrics:
         if not pool_uid or pool_uid not in self.pool_uids:
             return
 
-        pool_name = pool_data.get("name", "Unknown")
+        pool_name = self.pool_uid_to_name.get(pool_uid, "Unknown")
 
         # Get metrics values with fallbacks to 0
         current_fill = int(pool_data.get("currentfill", 0))
@@ -99,7 +103,7 @@ class PoolMetrics:
             return
 
         pool_uid = self.pool_alt_uid_to_uid.get(pool_uid, pool_uid)
-        pool_name = pool_data.get("title")
+        pool_name = self.pool_uid_to_name.get(pool_uid, "Unknown")
         if pool_uid not in self.pool_uids and pool_name not in self.pool_names:
             return
 
