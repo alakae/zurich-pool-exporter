@@ -21,7 +21,7 @@ COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pool_exporter ./pool_exporter
 RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
 
 # Lightweight production image
-FROM python:3.13-slim
+FROM python:3.13-slim AS runtime
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
