@@ -1,4 +1,5 @@
-FROM jetpackio/devbox:latest AS requirements-export
+# see: https://github.com/docker/buildx/discussions/696
+FROM --platform=${BUILDPLATFORM} jetpackio/devbox:latest AS requirements-export
 
 # Build stage that generates requirements.txt from pyproject.toml
 # We use devbox as base to avoid dependency version conflicts
