@@ -65,6 +65,15 @@ pools:
   - uid: "SSD-5"
     name: "Waermebad Kaeferberg"
     hardcoded_temperatur: 32
+  - uid: "seb6946"
+    name: "Strandbad Mythenquai"
+  - uid: "seb6947"
+    name: "Strandbad Tiefenbrunnen"
+  - uid: "seb6948"
+    name: "Strandbad Wollishofen"
+  - uid: "BADI-1"
+    alt_uid: "seb6943"
+    name: "Seebad Enge"
 
 # Logging configuration
 logging:
