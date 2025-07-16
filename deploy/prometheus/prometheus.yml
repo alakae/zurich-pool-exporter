@@ -4,7 +4,7 @@ global:
   scrape_timeout: 10s
 
 scrape_configs:
-  - job_name: 'pool-collector'
+  - job_name: "pool-collector"
     static_configs:
-      - targets: ['exporter:8000']
+      - targets: ["exporter:8000"]
     metrics_path: /metrics

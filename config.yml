@@ -9,7 +9,7 @@ occupancy:
 # Temperature data collection parameters
 temperature:
   url: "https://www.stadt-zuerich.ch/stzh/bathdatadownload"
-  poll_interval_seconds: 3600  # 1 hour
+  poll_interval_seconds: 3600 # 1 hour
   timeout_seconds: 30
 
 # Prometheus metrics

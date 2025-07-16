@@ -8,7 +8,7 @@ services:
         - "linux/amd64"
         - "linux/arm64"
     ports:
-      - "8000:8000"  # Expose metrics port for development
+      - "8000:8000" # Expose metrics port for development
     logging:
       driver: "json-file"
       options:
@@ -17,7 +17,7 @@ services:
 
   prometheus:
     ports:
-      - "8090:9090"  # Expose Prometheus UI in development
+      - "8090:9090" # Expose Prometheus UI in development
     logging:
       driver: "json-file"
       options:
@@ -26,10 +26,10 @@ services:
 
   grafana:
     ports:
-      - "3000:3000"  # Expose Grafana UI in development
+      - "3000:3000" # Expose Grafana UI in development
     environment:
       - GF_SECURITY_ADMIN_USER=admin
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Simple password for dev
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Simple password for dev
     logging:
       driver: "json-file"
       options:
