@@ -1,5 +1,6 @@
 services:
   exporter:
+    image: ghcr.io/alakae/zurich-pool-exporter:dev
     build:
       context: .
       tags:
