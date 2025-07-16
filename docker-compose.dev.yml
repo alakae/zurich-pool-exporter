@@ -3,7 +3,7 @@ services:
     build:
       context: .
       tags:
-        - docker.io/alakae/zurich-pool-exporter:dev
+        - ghcr.io/alakae/zurich-pool-exporter:dev
       platforms:
         - "linux/amd64"
         - "linux/arm64"
