@@ -22,7 +22,6 @@ class PoolMetrics:
             pool.uid: pool.name for pool in self.config.pools
         }
 
-
         # Create Prometheus metrics
         self.current_fill = Gauge(
             f"{self.namespace}_current_fill",
