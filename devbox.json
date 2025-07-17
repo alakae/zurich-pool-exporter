@@ -22,7 +22,7 @@
         "black ${@:-.}"
       ],
       "isort": [
-        "isort --skip .venv --skip .devbox ${@:-.}"
+        "isort --skip .venv --skip .devbox --skip .poetry ${@:-.}"
       ],
       "mdformat": [
         "mdformat ${@:-.}"
