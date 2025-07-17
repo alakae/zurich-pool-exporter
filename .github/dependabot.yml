@@ -1,0 +1,25 @@
+version: 2
+updates:
+  # Python dependencies
+  - package-ecosystem: "poetry"
+    directory: "/"
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  # Docker dependencies
+  - package-ecosystem: "docker"
+    directory: "/"
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
