@@ -4,6 +4,8 @@ updates:
   - package-ecosystem: "pip"
     directory: "/"
     open-pull-requests-limit: 5
+    schedule:
+      interval: "weekly"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
@@ -12,6 +14,8 @@ updates:
   - package-ecosystem: "docker"
     directory: "/"
     open-pull-requests-limit: 5
+    schedule:
+      interval: "weekly"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
@@ -20,6 +24,8 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     open-pull-requests-limit: 5
+    schedule:
+      interval: "weekly"
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
