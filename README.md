@@ -37,7 +37,7 @@ devbox shell
 
 This will automatically:
 
-- Set up Python 3.13
+- Set up Python
 - Configure Poetry
 - Install all dependencies
 - Set up the virtual environment
@@ -50,8 +50,9 @@ This will automatically:
 # Start the development environment
 devbox shell
 
-# Run the exporter
+# Run the exporter locally
 devbox run run
+curl http://localhost:8000/metrics
 ```
 
 ### Development Commands
@@ -64,6 +65,7 @@ devbox run mypy
 devbox run black
 devbox run isort
 devbox run mdformat
+devbox run dprint fmt
 
 # Build container
 devbox run docker-build
