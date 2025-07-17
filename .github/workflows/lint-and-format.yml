@@ -1,0 +1,35 @@
+name: Lint and Format
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  lint-and-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Devbox
+        uses: jetify-com/devbox-install-action@v0.13.0
+        with:
+          enable-cache: true
+
+      - name: Run mypy type checking
+        run: devbox run mypy
+
+      - name: Run black formatting check
+        run: devbox run black --check --diff .
+
+      - name: Run isort import sorting check
+        run: devbox run isort --check-only --diff .
+
+      - name: Run mdformat markdown formatting check
+        run: devbox run mdformat --check .
+
+      - name: Run dprint formatting check
+        run: devbox run dprint check

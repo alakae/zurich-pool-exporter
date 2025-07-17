@@ -8,6 +8,7 @@
   "yaml": {
   },
   "excludes": [
+    ".venv/**/*",
     "**/*-lock.json"
   ],
   "plugins": [
