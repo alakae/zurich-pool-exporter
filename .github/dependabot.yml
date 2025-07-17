@@ -20,6 +20,16 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
 
+  # Compose dependencies
+  - package-ecosystem: "docker-compose"
+    directory: "/"
+    open-pull-requests-limit: 5
+    schedule:
+      interval: "weekly"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+
   # GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
