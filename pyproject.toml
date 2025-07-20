@@ -30,3 +30,6 @@ types-pyyaml = "^6.0.12.20250402"
 
 [tool.isort]
 profile = "black"
+
+[tool.mypy]
+strict = true

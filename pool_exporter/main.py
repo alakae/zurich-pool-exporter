@@ -37,7 +37,7 @@ async def main() -> None:
     # Set up signal handlers for graceful shutdown
     loop = asyncio.get_running_loop()
 
-    def handle_signal(sig, frame):
+    def handle_signal(sig: int, frame: object) -> None:
         logger.info(f"Received signal {sig}, shutting down...")
         occupancy_collector.stop()
         temperature_collector.stop()

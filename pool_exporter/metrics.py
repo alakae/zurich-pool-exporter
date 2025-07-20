@@ -1,6 +1,7 @@
 import logging
-from typing import Dict, Mapping, Set
+from typing import Mapping, Set
 
+from api_types import PoolOccupancyData, TemperatureData
 from config import AppConfig
 from prometheus_client import Gauge, start_http_server
 
@@ -60,18 +61,18 @@ class PoolMetrics:
             f"Metrics server started at http://localhost:{self.config.metrics.port}{self.config.metrics.endpoint}"
         )
 
-    def update_occupancy_metrics(self, pool_data: Dict) -> None:
+    def update_occupancy_metrics(self, pool_data: PoolOccupancyData) -> None:
         """Update occupancy metrics for a single pool."""
-        pool_uid = pool_data.get("uid")
+        pool_uid = pool_data.uid
         if not pool_uid or pool_uid not in self.pool_uids:
             return
 
         pool_name = self.pool_uid_to_name.get(pool_uid, "Unknown")
 
         # Get metrics values with fallbacks to 0
-        current_fill = int(pool_data.get("currentfill", 0))
-        free_space = int(pool_data.get("freespace", 0))
-        max_space = int(pool_data.get("maxspace", 0))
+        current_fill = pool_data.currentfill
+        free_space = pool_data.freespace
+        max_space = pool_data.maxspace
 
         # Calculate occupancy percentage, handling potential division by zero
         occupancy_percentage: float = 0
@@ -94,9 +95,9 @@ class PoolMetrics:
             f"occupancy: {occupancy_percentage:.1f}%"
         )
 
-    def update_temperature_metrics(self, pool_data: Dict) -> None:
+    def update_temperature_metrics(self, pool_data: TemperatureData) -> None:
         """Update temperature metrics for a single pool."""
-        pool_uid = pool_data.get("pool_id")
+        pool_uid = pool_data.pool_id
         if not pool_uid:
             logger.warning(f"{pool_data} does not contain a pool_id, skipping")
             return
@@ -106,7 +107,7 @@ class PoolMetrics:
         if pool_uid not in self.pool_uids and pool_name not in self.pool_names:
             return
 
-        temperature = pool_data.get("temperature")
+        temperature = pool_data.temperature
         if temperature is not None:
             self.water_temperature.labels(pool_uid=pool_uid, pool_name=pool_name).set(
                 temperature

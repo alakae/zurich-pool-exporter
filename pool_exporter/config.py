@@ -33,7 +33,7 @@ class PoolConfig:
     uid: str
     name: str
     alt_uid: str | None = None
-    hardcoded_temperatur: float | None = None
+    hardcoded_temperatur: int | None = None
 
 
 @dataclass
