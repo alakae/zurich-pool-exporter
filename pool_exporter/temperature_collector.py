@@ -1,9 +1,10 @@
 import asyncio
 import logging
 import xml.etree.ElementTree as ET
-from typing import Dict, List, Optional
+from typing import Optional
 
 import aiohttp
+from api_types import TemperatureData
 from config import AppConfig
 from metrics import PoolMetrics
 
@@ -44,7 +45,7 @@ class TemperatureCollector:
             logger.exception(f"Unexpected error fetching temperature data: {e}")
             return None
 
-    def parse_temperature_data(self, xml_data: str) -> List[Dict]:
+    def parse_temperature_data(self, xml_data: str) -> list[TemperatureData]:
         """Parse temperature data from XML response."""
         try:
             logger.debug("Starting to parse XML temperature data")
@@ -72,29 +73,27 @@ class TemperatureCollector:
                     )
 
                     try:
-                        temp_value = (
-                            float(temperature.text) if temperature.text else None
-                        )
+                        temp_value = int(temperature.text) if temperature.text else None
                         logger.debug(
                             f"Temperature value for pool {pool_id_text}: {temp_value}"
                         )
 
                         pool_data.append(
-                            {
-                                "pool_id": pool_id_text,
-                                "title": title.text,
-                                "temperature": temp_value,
-                                "status": (
+                            TemperatureData(
+                                pool_id=pool_id_text,
+                                title=title.text,
+                                temperature=temp_value,
+                                status=(
                                     status.text
                                     if status is not None and status.text
                                     else "Unknown"
                                 ),
-                                "last_updated": (
+                                last_updated=(
                                     date_modified.text
                                     if date_modified is not None and date_modified.text
                                     else None
                                 ),
-                            }
+                            )
                         )
                     except (ValueError, TypeError) as e:
                         logger.warning(
@@ -110,7 +109,7 @@ class TemperatureCollector:
             logger.exception(f"Unexpected error parsing XML data: {e}")
             return []
 
-    def update_metrics(self, pool_data: List[Dict]) -> None:
+    def update_metrics(self, pool_data: list[TemperatureData]) -> None:
         for pool in pool_data:
             self.metrics.update_temperature_metrics(pool)
 
@@ -156,13 +155,13 @@ class TemperatureCollector:
         logger.info("Stopping temperature collector")
         self.running = False
 
-    def _publish_hard_coded(self):
+    def _publish_hard_coded(self) -> None:
         for pool in self.config.pools:
             if not pool.hardcoded_temperatur:
                 continue
-            data = {
-                "pool_id": pool.uid,
-                "title": pool.name,
-                "temperature": pool.hardcoded_temperatur,
-            }
+            data = TemperatureData(
+                pool_id=pool.uid,
+                title=pool.name,
+                temperature=pool.hardcoded_temperatur,
+            )
             self.metrics.update_temperature_metrics(data)

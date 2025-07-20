@@ -3,6 +3,7 @@ import json
 import logging
 
 import websockets
+from api_types import PoolOccupancyData
 from config import AppConfig
 from metrics import PoolMetrics
 from websockets import ClientConnection
@@ -48,16 +49,21 @@ class OccupancyCollector:
     async def process_message(self, message: str) -> None:
         """Process incoming WebSocket message."""
         try:
-            data = json.loads(message)
-            if not isinstance(data, list):
+            raw_data = json.loads(message)
+            if not isinstance(raw_data, list):
                 logger.warning(f"Unexpected data format: {message[:100]}")
                 return
 
+            pool_data_list: list[PoolOccupancyData] = [
+                PoolOccupancyData.from_dict(pool_data) for pool_data in raw_data
+            ]
+
             # Update metrics for each pool
-            for pool_data in data:
+            for pool_data in pool_data_list:
                 self.metrics.update_occupancy_metrics(pool_data)
-        except json.JSONDecodeError:
-            logger.error(f"Failed to parse JSON from message: {message[:100]}")
+
+        except (json.JSONDecodeError, ValueError, KeyError) as e:
+            logger.error(f"Failed to parse message: {e} - {message[:100]}")
         except Exception as e:
             logger.exception(f"Error processing message: {e}")
 
