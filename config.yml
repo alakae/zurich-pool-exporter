@@ -74,7 +74,9 @@ pools:
   - uid: "BADI-1"
     alt_uid: "seb6943"
     name: "Seebad Enge"
-
+  - uid: "LETZI-1"
+    name: "Freibad Letzigraben"
+    alt_uid: "fb002"
 # Logging configuration
 logging:
   level: "INFO"
