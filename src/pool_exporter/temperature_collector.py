@@ -4,9 +4,10 @@ import xml.etree.ElementTree as ET
 from typing import Optional
 
 import aiohttp
-from api_types import TemperatureData
-from config import AppConfig
-from metrics import PoolMetrics
+
+from pool_exporter.api_types import TemperatureData
+from pool_exporter.config import AppConfig
+from pool_exporter.metrics import PoolMetrics
 
 logger = logging.getLogger(__name__)
 

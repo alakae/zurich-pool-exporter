@@ -16,7 +16,7 @@ RUN devbox install
 # Copy only files needed for requirements.txt generation
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml .
 COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pool_exporter ./pool_exporter
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} src/pool_exporter ./src/pool_exporter
 
 # Export production dependencies only
 RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
@@ -31,12 +31,17 @@ WORKDIR /code
 COPY --from=requirements-export /code/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY pool_exporter /code/pool_exporter
+# Copy ALL source files needed for installation
+COPY pyproject.toml .
+COPY README.md .
+COPY src/ ./src/
+
+# Install the package itself
+RUN pip install --no-deps .
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app && \
     chown -R app:app /code
 USER app
 
-CMD ["python", "pool_exporter/main.py"]
+CMD ["python", "-m", "pool_exporter"]

@@ -9,7 +9,7 @@
   "shell": {
     "init_hook": [
       ". $VENV_DIR/bin/activate",
-      "poetry install --no-interaction"
+      "poetry install --no-interaction  # Install package in editable mode for src layout development"
     ],
     "scripts": {
       "test": [
@@ -31,7 +31,7 @@
         "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml"
       ],
       "run": [
-        "poetry run python pool_exporter/main.py"
+        "poetry run python -m pool_exporter"
       ]
     }
   }

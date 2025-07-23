@@ -1,9 +1,10 @@
 import logging
 from typing import Mapping, Set
 
-from api_types import PoolOccupancyData, TemperatureData
-from config import AppConfig
 from prometheus_client import Gauge, start_http_server
+
+from pool_exporter.api_types import PoolOccupancyData, TemperatureData
+from pool_exporter.config import AppConfig
 
 logger = logging.getLogger(__name__)
 
