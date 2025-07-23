@@ -3,11 +3,12 @@ import json
 import logging
 
 import websockets
-from api_types import PoolOccupancyData
-from config import AppConfig
-from metrics import PoolMetrics
 from websockets import ClientConnection
 from websockets.exceptions import ConnectionClosed, WebSocketException
+
+from pool_exporter.api_types import PoolOccupancyData
+from pool_exporter.config import AppConfig
+from pool_exporter.metrics import PoolMetrics
 
 logger = logging.getLogger(__name__)
 

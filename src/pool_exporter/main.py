@@ -3,10 +3,10 @@ import logging
 import signal
 import sys
 
-from config import load_config
-from metrics import PoolMetrics
-from occupancy_collector import OccupancyCollector
-from temperature_collector import TemperatureCollector
+from pool_exporter.config import load_config
+from pool_exporter.metrics import PoolMetrics
+from pool_exporter.occupancy_collector import OccupancyCollector
+from pool_exporter.temperature_collector import TemperatureCollector
 
 
 async def main() -> None:
@@ -61,5 +61,4 @@ async def main() -> None:
         logger.info("Pool Data Collector stopped")
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
+asyncio.run(main())
