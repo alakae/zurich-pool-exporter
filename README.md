@@ -66,6 +66,9 @@ devbox run isort
 devbox run mdformat
 devbox run dprint fmt
 
+# Build wheel into /dist
+devbox run build
+
 # Build container
 devbox run docker-build
 

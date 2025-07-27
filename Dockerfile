@@ -22,7 +22,7 @@ COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} src/ ./src/
 RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
 
 # Build the wheel
-RUN devbox run -- poetry build --format=wheel
+RUN devbox run build
 
 # Lightweight production image
 FROM python:3.13-slim AS runtime
