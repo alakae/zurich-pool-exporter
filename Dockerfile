@@ -32,11 +32,11 @@ WORKDIR /code
 
 # Install production dependencies with EXACT versions from lock file
 COPY --from=builder /code/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install --no-cache-dir -r requirements.txt
 
 # Install the wheel WITHOUT dependencies (they're already installed)
 COPY --from=builder /code/dist/*.whl /tmp/
-RUN pip install --no-cache-dir --no-deps /tmp/*.whl
+RUN python -m pip install --no-cache-dir --no-deps /tmp/*.whl
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app && \
