@@ -43,6 +43,14 @@ This will automatically:
 
 ## Usage
 
+### Building and Installing Locally
+
+```shell script
+# Build a wheel locally and install using pipx
+devbox run build
+PIPX_DEFAULT_PYTHON=/usr/local/bin/python3.13 pipx install dist/pool_exporter-*.whl 
+```
+
 ### Development
 
 ```shell script
