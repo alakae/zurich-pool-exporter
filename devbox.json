@@ -27,6 +27,9 @@
       "mdformat": [
         "mdformat ${@:-.}"
       ],
+      "build": [
+        "devbox run -- poetry build --format=wheel"
+      ],
       "docker-build": [
         "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml"
       ],
