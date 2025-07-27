@@ -1,7 +1,7 @@
 # see: https://github.com/docker/buildx/discussions/696
 FROM --platform=${BUILDPLATFORM} jetpackio/devbox:latest AS builder
 
-# Build stage that generates requirements.txt from pyproject.toml
+# Build stage that generates requirements.txt and wheel
 # We use devbox as base to avoid dependency version conflicts
 WORKDIR /code
 USER root:root
