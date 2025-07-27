@@ -8,26 +8,23 @@
   ],
   "shell": {
     "init_hook": [
-      ". $VENV_DIR/bin/activate"
+      ". $VENV_DIR/bin/activate",
+      "poetry install --no-root"
     ],
     "scripts": {
       "test": [
         "echo \"Error: no test specified\" && exit 1"
       ],
       "mypy": [
-        "poetry install --no-root",
         "mypy ${@:-.}"
       ],
       "black": [
-        "poetry install --no-root",
         "black ${@:-.}"
       ],
       "isort": [
-        "poetry install --no-root",
         "isort --skip .venv --skip .devbox --skip .poetry ${@:-.}"
       ],
       "mdformat": [
-        "poetry install --no-root",
         "mdformat ${@:-.}"
       ],
       "docker-build": [
