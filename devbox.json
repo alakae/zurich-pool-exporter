@@ -8,29 +8,33 @@
   ],
   "shell": {
     "init_hook": [
-      ". $VENV_DIR/bin/activate",
-      "poetry install --no-interaction  # Install package in editable mode for src layout development"
+      ". $VENV_DIR/bin/activate"
     ],
     "scripts": {
       "test": [
         "echo \"Error: no test specified\" && exit 1"
       ],
       "mypy": [
+        "poetry install --no-root",
         "mypy ${@:-.}"
       ],
       "black": [
+        "poetry install --no-root",
         "black ${@:-.}"
       ],
       "isort": [
+        "poetry install --no-root",
         "isort --skip .venv --skip .devbox --skip .poetry ${@:-.}"
       ],
       "mdformat": [
+        "poetry install --no-root",
         "mdformat ${@:-.}"
       ],
       "docker-build": [
         "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml"
       ],
       "run": [
+        "poetry install --no-interaction  # Install package in editable mode for src layout development",
         "poetry run python -m pool_exporter"
       ]
     }
