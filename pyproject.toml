@@ -14,6 +14,9 @@ dependencies = [
   "aiohttp (>=3.11.18,<4.0.0)",
 ]
 
+[project.scripts]
+pool-exporter = "pool_exporter.__main__:main"
+
 # Add this section for src layout
 [tool.setuptools.packages.find]
 where = ["src"]
