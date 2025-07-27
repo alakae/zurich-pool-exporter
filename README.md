@@ -38,9 +38,8 @@ devbox shell
 This will automatically:
 
 - Set up Python
-- Configure Poetry
-- Install all dependencies
 - Set up the virtual environment
+- Install all dependencies using poetry
 
 ## Usage
 
@@ -50,7 +49,7 @@ This will automatically:
 # Start the development environment
 devbox shell
 
-# Run the exporter locally
+# Run the exporter locally from an editable install 
 devbox run run
 curl http://localhost:8000/metrics
 ```
