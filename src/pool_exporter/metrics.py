@@ -114,5 +114,6 @@ class PoolMetrics:
                 temperature
             )
             logger.debug(
-                f"Updated temperature for pool {pool_name} (ID: {pool_uid}): {temperature}°C"
+                f"Updated temperature for pool {pool_name} (ID: {pool_uid}): "
+                f"{temperature}°C"
             )

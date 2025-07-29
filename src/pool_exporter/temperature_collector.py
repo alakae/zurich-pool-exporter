@@ -69,7 +69,8 @@ class TemperatureCollector:
                     pool_id_text = pool_id.text.lower() if pool_id.text else None
                     pool_title_text = title.text.strip() if title.text else ""
                     logger.debug(
-                        f"Processing pool with ID: {pool_id_text} and name: {pool_title_text}"
+                        f"Processing pool with ID: {pool_id_text} and "
+                        f"name: {pool_title_text}"
                     )
 
                     try:
@@ -120,7 +121,8 @@ class TemperatureCollector:
             pool_data = self.parse_temperature_data(xml_data)
             if pool_data:
                 logger.info(
-                    f"Successfully collected temperature data for {len(pool_data)} pools"
+                    f"Successfully collected temperature data for "
+                    f"{len(pool_data)} pools"
                 )
                 self.update_metrics(pool_data)
             else:
@@ -133,7 +135,8 @@ class TemperatureCollector:
         self.running = True
 
         logger.info(
-            f"Temperature collector started with polling interval of {self.poll_interval} seconds"
+            f"Temperature collector started with polling interval "
+            f"of {self.poll_interval} seconds"
         )
 
         while self.running:
@@ -144,7 +147,8 @@ class TemperatureCollector:
 
             if self.running:
                 logger.debug(
-                    f"Waiting {self.poll_interval} seconds until next temperature collection"
+                    f"Waiting {self.poll_interval} seconds until "
+                    f"next temperature collection"
                 )
                 await asyncio.sleep(self.poll_interval)
 
