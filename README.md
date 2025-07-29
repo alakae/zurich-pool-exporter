@@ -1,5 +1,8 @@
 # Zürich Pool Exporter
 
+[![Built with Devbox](https://www.jetify.com/img/devbox/shield_galaxy.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 A data collection service that monitors real-time occupancy and temperature data for public swimming pools in Zürich, Switzerland and exposes metrics in Prometheus format.
 
 ## Overview
