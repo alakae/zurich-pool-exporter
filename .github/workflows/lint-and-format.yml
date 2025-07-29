@@ -25,11 +25,11 @@ jobs:
       - name: Run mypy type checking
         run: devbox run mypy
 
-      - name: Run black formatting check
-        run: devbox run black --check --diff .
+      - name: Run ruff formatting check
+        run: devbox run format --check --diff .
 
-      - name: Run isort import sorting check
-        run: devbox run isort --check-only --diff .
+      - name: Run ruff linting and import sorting check
+        run: devbox run check .
 
       - name: Run mdformat markdown formatting check
         run: devbox run mdformat --check .

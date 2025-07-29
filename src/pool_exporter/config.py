@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from pathlib import Path
-from typing import List, Optional
 
 import yaml
 
@@ -47,11 +46,11 @@ class AppConfig:
     occupancy: OccupancyConfig
     temperature: TemperatureConfig
     metrics: MetricsConfig
-    pools: List[PoolConfig]
+    pools: list[PoolConfig]
     logging: LoggingConfig
 
 
-def load_config(config_path: Optional[Path] = None) -> AppConfig:
+def load_config(config_path: Path | None = None) -> AppConfig:
     """Load configuration from YAML file."""
     if config_path is None:
         config_path = Path("config.yml")
@@ -59,7 +58,7 @@ def load_config(config_path: Optional[Path] = None) -> AppConfig:
     if not config_path.exists():
         raise FileNotFoundError(f"Config file not found: {config_path}")
 
-    with open(config_path, "r") as f:
+    with open(config_path) as f:
         config_data = yaml.safe_load(f)
 
     return AppConfig(

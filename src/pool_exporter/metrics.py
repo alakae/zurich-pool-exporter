@@ -1,5 +1,5 @@
 import logging
-from typing import Mapping, Set
+from collections.abc import Mapping
 
 from prometheus_client import Gauge, start_http_server
 
@@ -15,8 +15,8 @@ class PoolMetrics:
     def __init__(self, config: AppConfig):
         self.config = config
         self.namespace = config.metrics.namespace
-        self.pool_uids: Set[str] = {pool.uid for pool in config.pools}
-        self.pool_names: Set[str] = {pool.name for pool in config.pools}
+        self.pool_uids: set[str] = {pool.uid for pool in config.pools}
+        self.pool_names: set[str] = {pool.name for pool in config.pools}
         self.pool_alt_uid_to_uid: Mapping[str, str] = {
             pool.alt_uid: str(pool.uid) for pool in self.config.pools if pool.alt_uid
         }

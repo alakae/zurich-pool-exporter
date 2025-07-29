@@ -69,8 +69,8 @@ curl http://localhost:8000/metrics
 devbox run mypy
 
 # Format code
-devbox run black
-devbox run isort
+devbox run format
+devbox run check
 devbox run mdformat
 devbox run dprint fmt
 
