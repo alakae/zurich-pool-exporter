@@ -1,7 +1,6 @@
 import asyncio
 import logging
 import xml.etree.ElementTree as ET
-from typing import Optional
 
 import aiohttp
 
@@ -24,7 +23,7 @@ class TemperatureCollector:
         self.running = False
         self._publish_hard_coded()
 
-    async def fetch_temperature_data(self) -> Optional[str]:
+    async def fetch_temperature_data(self) -> str | None:
         """Fetch temperature data from the XML API."""
         try:
             logger.info(f"Fetching temperature data from {self.xml_url}")

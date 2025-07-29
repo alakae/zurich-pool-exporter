@@ -4,7 +4,8 @@
     "python@3.13",
     "poetry@latest",
     "mdformat@latest",
-    "dprint@latest"
+    "dprint@latest",
+    "ruff@latest"
   ],
   "shell": {
     "init_hook": [
@@ -18,11 +19,11 @@
       "mypy": [
         "mypy ${@:-.}"
       ],
-      "black": [
-        "black ${@:-.}"
+      "format": [
+        "ruff format ${@:-.}"
       ],
-      "isort": [
-        "isort --skip .venv --skip .devbox --skip .poetry ${@:-.}"
+      "check": [
+        "ruff check ${@:-.}"
       ],
       "mdformat": [
         "mdformat ${@:-.}"

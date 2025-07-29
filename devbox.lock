@@ -209,6 +209,54 @@
           "store_path": "/nix/store/aicda9v5hprnbik4rwi4ajfv4ab0r5hk-python3-3.13.3"
         }
       }
+    },
+    "ruff@latest": {
+      "last_modified": "2025-07-13T22:45:35Z",
+      "resolved": "github:NixOS/nixpkgs/a421ac6595024edcfbb1ef950a3712b89161c359#ruff",
+      "source": "devbox-search",
+      "version": "0.12.3",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/xqqqh3n8wyn54ga1dq44s09bv8b2h8ry-ruff-0.12.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/xqqqh3n8wyn54ga1dq44s09bv8b2h8ry-ruff-0.12.3"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3rj9xwhr1fdrblz3g8aifrw0q8rwcwza-ruff-0.12.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/3rj9xwhr1fdrblz3g8aifrw0q8rwcwza-ruff-0.12.3"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ngilnvdfhldi7vdviwm1jb84i3axikqk-ruff-0.12.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ngilnvdfhldi7vdviwm1jb84i3axikqk-ruff-0.12.3"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/58ha6ys82s5lhvxwynjcsp8p1xz4ar6y-ruff-0.12.3",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/58ha6ys82s5lhvxwynjcsp8p1xz4ar6y-ruff-0.12.3"
+        }
+      }
     }
   }
 }
