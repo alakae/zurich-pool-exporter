@@ -29,15 +29,17 @@ class TemperatureCollector:
             logger.info(f"Fetching temperature data from {self.xml_url}")
             timeout = aiohttp.ClientTimeout(total=self.timeout)
 
-            async with aiohttp.ClientSession(timeout=timeout) as session:
-                async with session.get(self.xml_url) as response:
-                    if response.status != 200:
-                        logger.error(
-                            f"Failed to fetch temperature data: HTTP {response.status}"
-                        )
-                        return None
+            async with (
+                aiohttp.ClientSession(timeout=timeout) as session,
+                session.get(self.xml_url) as response,
+            ):
+                if response.status != 200:
+                    logger.error(
+                        f"Failed to fetch temperature data: HTTP {response.status}"
+                    )
+                    return None
 
-                    return await response.text()
+                return await response.text()
         except aiohttp.ClientError as e:
             logger.error(f"Error fetching temperature data: {e}")
             return None
