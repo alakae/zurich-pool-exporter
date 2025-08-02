@@ -17,13 +17,6 @@ dependencies = [
 [project.scripts]
 pool-exporter = "pool_exporter.__main__:main"
 
-# Add this section for src layout
-[tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-dir]
-"" = "src"
-
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
