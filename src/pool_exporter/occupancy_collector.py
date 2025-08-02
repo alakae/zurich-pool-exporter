@@ -100,7 +100,7 @@ class OccupancyCollector:
                 # Ensure connection is properly closed
                 try:
                     await websocket.close()
-                except:
+                except (WebSocketException, ConnectionClosed):
                     pass
 
                 if self.running:
