@@ -14,13 +14,14 @@ COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} devbox.lock devbox.lock
 RUN devbox install
 
 # Copy ALL files needed for wheel building and requirements.txt generation
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} src/ ./src/
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml pyproject.toml
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} uv.lock uv.lock
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} .python-version .python-version
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md README.md
+COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} src/ src/
 
 # Export EXACT versions from lock file
-RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
-
+RUN devbox run freeze
 # Build the wheel
 RUN devbox run build
 
@@ -43,4 +44,4 @@ RUN useradd --create-home --shell /bin/bash app && \
     chown -R app:app /code
 USER app
 
-CMD ["python", "-m", "pool_exporter"]
+CMD ["pool-exporter"]

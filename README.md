@@ -42,7 +42,7 @@ This will automatically:
 
 - Set up Python
 - Set up the virtual environment
-- Install all dependencies using poetry
+- Install tools such as uv and ruff
 
 ## Usage
 
@@ -77,11 +77,17 @@ devbox run check
 devbox run mdformat
 devbox run dprint fmt
 
+# Export the lockfile in `requirements-txt` format
+devbox run build
+
 # Build wheel into /dist
 devbox run build
 
 # Build container
 devbox run docker-build
+
+# Wipe temporary files
+devbox run clear
 
 # Run tests
 devbox run test

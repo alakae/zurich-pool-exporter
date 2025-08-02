@@ -15,19 +15,18 @@ dependencies = [
 ]
 
 [project.scripts]
-pool-exporter = "pool_exporter.__main__:main"
+pool-exporter = "pool_exporter:main"
+
+[dependency-groups]
+dev = [
+  "mypy>=1.17.0",
+  "pytest>=8.4.1",
+  "types-pyyaml>=6.0.12.20250402",
+]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.requires-plugins]
-poetry-plugin-export = ">=1.8"
-
-[tool.poetry.group.dev.dependencies]
-mypy = "^1.17.0"
-pytest = "^8.4.1"
-types-pyyaml = "^6.0.12.20250402"
+requires = ["uv_build>=0.8.2,<0.9.0"]
+build-backend = "uv_build"
 
 [tool.mypy]
 strict = true

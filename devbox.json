@@ -1,23 +1,22 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.14.2/.schema/devbox.schema.json",
   "packages": [
-    "python@3.13",
-    "poetry@latest",
     "mdformat@latest",
     "dprint@latest",
-    "ruff@latest"
+    "ruff@latest",
+    "uv@latest"
   ],
+  "env": {
+    "UV_PYTHON_INSTALL_DIR": "$PWD/.local/share/uv/python",
+    "UV_MANAGED_PYTHON": "1"
+  },
   "shell": {
-    "init_hook": [
-      ". $VENV_DIR/bin/activate",
-      "poetry install --no-root"
-    ],
     "scripts": {
       "test": [
         "echo \"Error: no test specified\" && exit 1"
       ],
       "mypy": [
-        "mypy ${@:-.}"
+        "uv run mypy ${@:-.}"
       ],
       "format": [
         "ruff format ${@:-.}"
@@ -28,15 +27,20 @@
       "mdformat": [
         "mdformat ${@:-.}"
       ],
+      "freeze": [
+        "uv export --locked --format requirements-txt --no-dev --no-install-project --output-file requirements.txt"
+      ],
       "build": [
-        "devbox run -- poetry build --format=wheel"
+        "uv build --wheel"
       ],
       "docker-build": [
         "docker buildx bake -f docker-compose.yml -f docker-compose.dev.yml"
       ],
+      "clear": [
+        "rm -r dist .venv .local"
+      ],
       "run": [
-        "poetry install --no-interaction  # Install package in editable mode for src layout development",
-        "poetry run python -m pool_exporter"
+        "uv run pool-exporter"
       ]
     }
   }
