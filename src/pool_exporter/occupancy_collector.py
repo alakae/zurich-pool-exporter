@@ -1,6 +1,7 @@
 import asyncio
 import json
 import logging
+from contextlib import suppress
 
 import websockets
 from websockets import ClientConnection
@@ -97,12 +98,15 @@ class OccupancyCollector:
             except Exception as e:
                 logger.error(f"Error in WebSocket listener: {e}")
             finally:
-                # Ensure connection is properly closed
-                try:
+                # Ensure connection is properly closed, even if an error occurred
+                # Use suppress() to ignore exceptions that can occur during cleanup:
+                # - WebSocketException: General websocket errors during close
+                # - ConnectionClosed: Connection was already closed by server/network
+                with suppress(WebSocketException, ConnectionClosed):
                     await websocket.close()
-                except (WebSocketException, ConnectionClosed):
-                    pass
 
+                # Only attempt to reconnect if the collector is still running
+                # (not if it was explicitly stopped via stop() method)
                 if self.running:
                     logger.info(f"Reconnecting in {self.retry_interval} seconds...")
                     await asyncio.sleep(self.retry_interval)
