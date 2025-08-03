@@ -27,9 +27,6 @@
       "mdformat": [
         "mdformat ${@:-.}"
       ],
-      "freeze": [
-        "uv export --locked --format requirements-txt --no-dev --no-install-project --output-file requirements.txt"
-      ],
       "build": [
         "uv build --wheel"
       ],
