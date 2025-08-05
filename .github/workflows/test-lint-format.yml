@@ -1,5 +1,4 @@
-name: Lint and Format
-
+name: Test, Lint and Format
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -10,6 +9,21 @@ on:
   pull_request:
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Devbox
+        uses: jetify-com/devbox-install-action@v0.13.0
+        with:
+          enable-cache: true
+
+      - name: Run tests
+        run: devbox run test
+
   lint-and-format:
     runs-on: ubuntu-latest
 
