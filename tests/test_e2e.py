@@ -74,11 +74,11 @@ def test_e2e_main_loads_config_and_serves_metrics(
             for regex in [
                 (
                     r'zurich_pools_water_temperature\{pool_name="Freibad Seebach",'
-                    r'pool_uid="SSD-11"\} ([+]?[0-9]*\.?[0-9]+)'
+                    r'pool_uid="SSD-11"\} ([0-9]*\.?[0-9]+)'
                 ),
                 (
                     r'zurich_pools_max_space\{pool_name="Freibad Seebach",'
-                    r'pool_uid="SSD-11"\} ([+]?[0-9]*\.?[0-9]+)'
+                    r'pool_uid="SSD-11"\} ([0-9]*\.?[0-9]+)'
                 ),
             ]:
                 match = re.search(regex, metrics_content)
