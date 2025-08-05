@@ -42,7 +42,7 @@ This will automatically:
 
 - Set up Python
 - Set up the virtual environment
-- Install all dependencies using poetry
+- Install tools such as uv and ruff
 
 ## Usage
 
@@ -61,7 +61,7 @@ PIPX_DEFAULT_PYTHON=/usr/local/bin/python3.13 pipx install dist/pool_exporter-*.
 devbox shell
 
 # Run the exporter locally from an editable install 
-devbox run run
+devbox run serve
 curl http://localhost:8000/metrics
 ```
 
@@ -77,11 +77,17 @@ devbox run check
 devbox run mdformat
 devbox run dprint fmt
 
+# Export the lockfile in `requirements-txt` format
+devbox run build
+
 # Build wheel into /dist
 devbox run build
 
 # Build container
 devbox run docker-build
+
+# Wipe temporary files
+devbox run clear
 
 # Run tests
 devbox run test

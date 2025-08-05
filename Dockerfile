@@ -1,46 +1,57 @@
-# see: https://github.com/docker/buildx/discussions/696
-FROM --platform=${BUILDPLATFORM} jetpackio/devbox:latest AS builder
+# Sources: https://github.com/astral-sh/uv-docker-example and
+# https://www.joshkasuboski.com/posts/distroless-python-uv/
 
-# Build stage that generates requirements.txt and wheel
-# We use devbox as base to avoid dependency version conflicts
-WORKDIR /code
-USER root:root
-RUN mkdir -p /code && chown ${DEVBOX_USER}:${DEVBOX_USER} /code
-USER ${DEVBOX_USER}:${DEVBOX_USER}
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} devbox.json devbox.json
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} devbox.lock devbox.lock
-
-# Install devbox packages
-RUN devbox install
-
-# Copy ALL files needed for wheel building and requirements.txt generation
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} pyproject.toml .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} README.md .
-COPY --chown=${DEVBOX_USER}:${DEVBOX_USER} src/ ./src/
-
-# Export EXACT versions from lock file
-RUN devbox run -- poetry export --only=main --format=requirements.txt --output=requirements.txt
-
-# Build the wheel
-RUN devbox run build
-
-# Lightweight production image
-FROM python:3.13-slim AS runtime
-ENV PYTHONUNBUFFERED=1
-
+# Use a Python image with uv pre-installed
+FROM ghcr.io/astral-sh/uv:0.8.2-bookworm-slim AS builder
 WORKDIR /code
 
-# Install production dependencies with EXACT versions from lock file
-COPY --from=builder /code/requirements.txt .
-RUN python -m pip install --no-cache-dir -r requirements.txt
+# Enable bytecode compilation:
+# https://docs.astral.sh/uv/reference/cli/#uv-sync--compile-bytecode
+ENV UV_COMPILE_BYTECODE=1
 
-# Install the wheel WITHOUT dependencies (they're already installed)
-COPY --from=builder /code/dist/*.whl /tmp/
-RUN python -m pip install --no-cache-dir --no-deps /tmp/*.whl
+# Copy from the cache instead of linking since it's a mounted volume
+# https://docs.astral.sh/uv/reference/cli/#uv-sync--link-mode
+ENV UV_LINK_MODE=copy
 
-# Create non-root user
-RUN useradd --create-home --shell /bin/bash app && \
-    chown -R app:app /code
-USER app
+# Configure the Python directory so it is consistent
+# https://docs.astral.sh/uv/reference/cli/#uv-python-install--install-dir
+ENV UV_PYTHON_INSTALL_DIR=/python
 
-CMD ["python", "-m", "pool_exporter"]
+# Only use the managed Python version
+# https://docs.astral.sh/uv/reference/cli/#uv-python-install--managed-python
+ENV UV_MANAGED_PYTHON=1
+
+# Install Python before the project for caching
+RUN --mount=type=cache,target=/root/.cache/uv \
+      --mount=type=bind,source=.python-version,target=.python-version \
+    uv python install
+
+# Install the project's dependencies using the lockfile and settings
+RUN --mount=type=cache,target=/root/.cache/uv \
+      --mount=type=bind,source=uv.lock,target=uv.lock \
+      --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project --no-dev
+
+# Then, add the rest of the project source code and install it
+# Installing separately from its dependencies allows optimal layer caching
+COPY src/ src/
+RUN --mount=type=cache,target=/root/.cache/uv \
+        --mount=type=bind,source=uv.lock,target=uv.lock \
+        --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+        --mount=type=bind,source=README.md,target=README.md \
+    uv sync --locked --no-dev --no-editable
+
+# Then, use a final image without uv
+FROM gcr.io/distroless/static
+WORKDIR /code
+
+# Copy the Python version
+COPY --from=builder --chown=python:python /python /python
+
+# Copy the application from the builder
+COPY --from=builder --chown=app:app /code/.venv /code/.venv
+
+# Place executables in the environment at the front of the path
+ENV PATH="/code/.venv/bin:$PATH"
+
+CMD ["pool-exporter"]
