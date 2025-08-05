@@ -26,7 +26,7 @@
         "type": "prometheus",
         "uid": "PBFA97CFB590B2093"
       },
-      "description": "Compared to the maximum value measured over the past 90 days.",
+      "description": "",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -88,56 +88,17 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "zurich_pools_current_fill{pool_name=~\"$pool\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "legendFormat": "{{pool_name}}",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PBFA97CFB590B2093"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
+          "editorMode": "code",
           "exemplar": false,
-          "expr": "max_over_time(zurich_pools_current_fill{pool_name=~\"$pool\"}[90d])",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "{{pool_name}}",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "__expr__",
-            "uid": "-100"
-          },
-          "expression": "$A / $B",
-          "refId": "C",
-          "type": "math"
+          "expr": "zurich_pools_current_fill{pool_name=~\"$pool\"} / on(pool_name) zurich_pools_max_space{pool_name=~\"$pool\"}",
+          "hide": false,
+          "instant": true,
+          "legendFormat": "__auto",
+          "range": false,
+          "refId": "A"
         }
       ],
       "title": "Occupancy",
-      "transformations": [
-        {
-          "id": "filterFieldsByName",
-          "options": {
-            "include": {
-              "names": [
-                "C"
-              ]
-            }
-          }
-        }
-      ],
       "type": "gauge"
     },
     {
@@ -210,11 +171,13 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
+          "exemplar": false,
           "expr": "zurich_pools_current_fill{pool_name=~\"$pool\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
+          "instant": true,
           "legendFormat": "{{pool_name}}",
-          "range": true,
+          "range": false,
           "refId": "A",
           "useBackend": false
         }
@@ -287,11 +250,14 @@
         {
           "disableTextWrap": false,
           "editorMode": "builder",
+          "exemplar": false,
           "expr": "zurich_pools_water_temperature{pool_name=~\"$pool\"}",
+          "format": "time_series",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
+          "instant": true,
           "legendFormat": "{{pool_name}}",
-          "range": true,
+          "range": false,
           "refId": "A",
           "useBackend": false
         }
@@ -554,7 +520,7 @@
         {
           "disableTextWrap": false,
           "editorMode": "code",
-          "expr": "zurich_pools_current_fill{pool_name=~\"$pool\"} / ignoring(instance,job) max_over_time(zurich_pools_current_fill{pool_name=~\"$pool\"}[90d])",
+          "expr": "zurich_pools_current_fill{pool_name=~\"$pool\"} / on(pool_name) zurich_pools_max_space{pool_name=~\"$pool\"}",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "legendFormat": "{{pool_name}}",
@@ -811,5 +777,5 @@
   "timezone": "browser",
   "title": "Badis",
   "uid": "5559cefe-330f-4fcb-9819-33952b637b9f",
-  "version": 53
+  "version": 57
 }
