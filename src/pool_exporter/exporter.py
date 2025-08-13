@@ -59,3 +59,7 @@ async def run_exporter() -> None:
         logger.exception(f"Unexpected error: {e}")
     finally:
         logger.info("Pool Data Collector stopped")
+
+
+def run() -> None:
+    asyncio.run(run_exporter())

@@ -15,7 +15,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pool-exporter = "pool_exporter:main"
+pool-exporter = "pool_exporter.exporter:run"
 
 [dependency-groups]
 dev = [
