@@ -9,7 +9,7 @@ from pool_exporter.occupancy_collector import OccupancyCollector
 from pool_exporter.temperature_collector import TemperatureCollector
 
 
-async def main() -> None:
+async def run_exporter() -> None:
     """Main entry point for the pool data collector."""
     # Load configuration
     try:
@@ -59,6 +59,3 @@ async def main() -> None:
         logger.exception(f"Unexpected error: {e}")
     finally:
         logger.info("Pool Data Collector stopped")
-
-
-asyncio.run(main())

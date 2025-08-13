@@ -28,23 +28,26 @@ def config_file(project_root: Path) -> Path:
 
 
 @pytest.fixture
-def main_module_path(project_root: Path) -> Path:
-    """Get the path to the main module."""
-    return project_root / "src" / "pool_exporter" / "main.py"
+def exporter_module_path(project_root: Path) -> Path:
+    """Get the path to the exporter module."""
+    return project_root / "src" / "pool_exporter" / "exporter.py"
 
 
-def test_e2e_main_loads_config_and_serves_metrics(
-    project_root: Path, config_file: Path, main_module_path: Path
+def test_e2e_exporter_loads_config_and_serves_metrics(
+    project_root: Path, config_file: Path, exporter_module_path: Path
 ) -> None:
-    """Test that main.py can load the configuration file and serve metrics endpoint."""
+    """
+    Test that exporter.py can load the configuration
+    file and serve metrics endpoint.
+    """
     # Change to project root directory so config.yml can be found
     original_cwd = os.getcwd()
     try:
         os.chdir(project_root)
 
-        # Run the main module as a subprocess
+        # Run the exporter module as a subprocess
         process = subprocess.Popen(
-            [sys.executable, str(main_module_path)],
+            [sys.executable, str(exporter_module_path)],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
