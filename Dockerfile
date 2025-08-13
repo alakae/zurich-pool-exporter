@@ -42,7 +42,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --locked --no-dev --no-editable
 
 # Then, use a final image without uv
-FROM gcr.io/distroless/static
+FROM gcr.io/distroless/base
 WORKDIR /code
 
 # Copy the Python version
