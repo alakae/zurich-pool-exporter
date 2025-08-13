@@ -99,6 +99,8 @@ def test_e2e_main_loads_config_and_serves_metrics(
         expected_metrics_msg = "Metrics server started at http://localhost:8000/metrics"
         assert expected_metrics_msg in stderr or expected_metrics_msg in stdout
 
+        assert "WARNING" not in stderr and "WARNING" not in stdout
+
     finally:
         # Make sure the process is terminated
         if process.poll() is None:
