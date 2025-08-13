@@ -76,7 +76,9 @@ class TemperatureCollector:
                     )
 
                     try:
-                        temp_value = int(temperature.text) if temperature.text else None
+                        temp_value = (
+                            float(temperature.text) if temperature.text else None
+                        )
                         logger.debug(
                             f"Temperature value for pool {pool_id_text}: {temp_value}"
                         )

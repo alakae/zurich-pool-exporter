@@ -26,7 +26,7 @@ class PoolOccupancyData:
 @dataclass(frozen=True)
 class TemperatureData:
     pool_id: str | None
-    temperature: int | None
+    temperature: float | None
     title: str | None
     status: str | None = None
     last_updated: str | None = None

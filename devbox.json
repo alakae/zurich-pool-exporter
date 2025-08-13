@@ -13,7 +13,7 @@
   "shell": {
     "scripts": {
       "test": [
-        "echo \"Error: no test specified\" && exit 1"
+        "uv run pytest"
       ],
       "mypy": [
         "uv run mypy ${@:-.}"

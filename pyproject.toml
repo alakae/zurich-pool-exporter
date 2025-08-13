@@ -21,7 +21,9 @@ pool-exporter = "pool_exporter:main"
 dev = [
   "mypy>=1.17.0",
   "pytest>=8.4.1",
+  "requests>=2.32.4",
   "types-pyyaml>=6.0.12.20250402",
+  "types-requests>=2.32.4.20250611",
 ]
 
 [build-system]
