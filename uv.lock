@@ -296,10 +296,10 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "aiohttp", specifier = ">=3.11.18,<4.0.0" },
-    { name = "prometheus-client", specifier = ">=0.21.1,<0.22.0" },
-    { name = "pyyaml", specifier = ">=6.0.2,<7.0.0" },
-    { name = "websockets", specifier = ">=15.0.1,<16.0.0" },
+    { name = "aiohttp", specifier = ">=3.11.18" },
+    { name = "prometheus-client", specifier = ">=0.21.1" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "websockets", specifier = ">=15.0.1" },
 ]
 
 [package.metadata.requires-dev]
