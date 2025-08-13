@@ -27,14 +27,8 @@ def config_file(project_root: Path) -> Path:
     return config_path
 
 
-@pytest.fixture
-def exporter_module_path(project_root: Path) -> Path:
-    """Get the path to the exporter module."""
-    return project_root / "src" / "pool_exporter" / "exporter.py"
-
-
 def test_e2e_exporter_loads_config_and_serves_metrics(
-    project_root: Path, config_file: Path, exporter_module_path: Path
+    project_root: Path, config_file: Path
 ) -> None:
     """
     Test that exporter.py can load the configuration
@@ -45,9 +39,9 @@ def test_e2e_exporter_loads_config_and_serves_metrics(
     try:
         os.chdir(project_root)
 
-        # Run the exporter module as a subprocess
+        # Run the pool_exporter module as a subprocess
         process = subprocess.Popen(
-            [sys.executable, str(exporter_module_path)],
+            [sys.executable, "-m", "pool_exporter"],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
