@@ -34,30 +34,54 @@ async def run_exporter() -> None:
     occupancy_collector = OccupancyCollector(config, metrics)
     temperature_collector = TemperatureCollector(config, metrics)
 
-    # Set up signal handlers for graceful shutdown
-    loop = asyncio.get_running_loop()
+    # Create a shutdown event for graceful termination
+    shutdown_event = asyncio.Event()
 
+    # Set up signal handlers for graceful shutdown
     def handle_signal(sig: int, frame: object) -> None:
         logger.info(f"Received signal {sig}, shutting down...")
         occupancy_collector.stop()
         temperature_collector.stop()
-        # Give tasks a chance to complete
-        loop.call_later(1, loop.stop)
+        shutdown_event.set()
 
     signal.signal(signal.SIGINT, handle_signal)
     signal.signal(signal.SIGTERM, handle_signal)
 
-    # Run collectors concurrently
+    # Create tasks for the collectors
+    occupancy_task = asyncio.create_task(occupancy_collector.run())
+    temperature_task = asyncio.create_task(temperature_collector.run())
+
     try:
-        await asyncio.gather(
-            occupancy_collector.run(),
-            temperature_collector.run(),
+        # Wait for either all tasks to complete or shutdown signal
+        done, pending = await asyncio.wait(
+            [
+                occupancy_task,
+                temperature_task,
+                asyncio.create_task(shutdown_event.wait()),
+            ],
+            return_when=asyncio.FIRST_COMPLETED,
         )
+
+        # If shutdown was requested, cancel pending tasks
+        if shutdown_event.is_set():
+            logger.info("Shutdown requested, cancelling tasks...")
+            for task in pending:
+                if not task.done():
+                    task.cancel()
+
+            # Wait for tasks to complete cancellation
+            if pending:
+                await asyncio.wait(pending, timeout=5.0)
+
     except asyncio.CancelledError:
         logger.info("Tasks were cancelled")
     except Exception as e:
         logger.exception(f"Unexpected error: {e}")
     finally:
+        # Ensure all tasks are cancelled
+        for task in [occupancy_task, temperature_task]:
+            if not task.done():
+                task.cancel()
         logger.info("Pool Data Collector stopped")
 
 
