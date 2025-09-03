@@ -86,9 +86,6 @@ devbox run check
 devbox run mdformat
 devbox run dprint fmt
 
-# Export the lockfile in `requirements-txt` format
-devbox run build
-
 # Build wheel into /dist
 devbox run build
 
