@@ -1,9 +1,11 @@
 # Zürich Pool Exporter
 
 [![Built with Devbox](https://www.jetify.com/img/devbox/shield_galaxy.svg)](https://www.jetify.com/devbox/docs/contributor-quickstart/)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://kentcdodds.github.io/makeapullrequest.com/)
 
-A data collection service that monitors real-time occupancy and temperature data for public swimming pools in Zürich, Switzerland and exposes metrics in Prometheus format.
+> A data collection service that monitors real-time occupancy and temperature data for public swimming pools in Zürich, Switzerland and exposes metrics in Prometheus format.
+
+This is a just for fun project.
 
 ## Overview
 
@@ -12,6 +14,13 @@ This project collects data from Zürich's swimming pools through:
 - Real-time occupancy data via WebSocket connection
 - Temperature data via HTTP polling
 - Exposes metrics in Prometheus format for monitoring and visualization
+
+## Disclaimer
+
+This project is an independent, open-source initiative and is **not**
+affiliated with, endorsed by, or associated with the City of Zürich,
+the Sportamt Zürich, or any of their agencies.
+All code provided by this project is for informational purposes only.
 
 ## Example
 
