@@ -37,7 +37,7 @@ services:
       - exporter
 
   grafana:
-    image: grafana/grafana:12.1.1
+    image: grafana/grafana:12.2.0
     container_name: grafana
     restart: unless-stopped
     volumes:
