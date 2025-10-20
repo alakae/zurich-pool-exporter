@@ -2,7 +2,7 @@
 # https://www.joshkasuboski.com/posts/distroless-python-uv/
 
 # Use a Python image with uv pre-installed
-FROM ghcr.io/astral-sh/uv:0.8.2-bookworm-slim AS builder
+FROM ghcr.io/astral-sh/uv:0.9.4-bookworm-slim AS builder
 WORKDIR /code
 
 # Enable bytecode compilation:
