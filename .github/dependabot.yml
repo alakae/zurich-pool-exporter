@@ -22,7 +22,7 @@ updates:
 
   # Compose dependencies
   - package-ecosystem: "docker-compose"
-    directory: "/"
+    directory: "/deploy"
     open-pull-requests-limit: 5
     schedule:
       interval: "weekly"
@@ -32,7 +32,7 @@ updates:
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
-    directory: "/"
+    directory: "/.github"
     open-pull-requests-limit: 5
     schedule:
       interval: "weekly"
