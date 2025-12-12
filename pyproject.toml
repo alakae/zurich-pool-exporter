@@ -27,7 +27,10 @@ dev = [
 ]
 
 [build-system]
-requires = ["uv_build>=0.8.2,<0.9.0"]
+requires = [
+  # upper bound limit explicitly encourged by docs
+  "uv_build>=0.9.17,<0.10.0",
+]
 build-backend = "uv_build"
 
 [tool.mypy]
