@@ -9,6 +9,8 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+    cooldown:
+      default-days: 7
 
   # Docker dependencies
   - package-ecosystem: "docker"
@@ -19,6 +21,8 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+    cooldown:
+      default-days: 7
 
   # Compose dependencies
   - package-ecosystem: "docker-compose"
@@ -29,6 +33,8 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+    cooldown:
+      default-days: 7
 
   # GitHub Actions
   - package-ecosystem: "github-actions"
@@ -39,3 +45,5 @@ updates:
     ignore:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
+    cooldown:
+      default-days: 7
