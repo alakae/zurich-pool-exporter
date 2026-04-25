@@ -2,8 +2,6 @@ name: Build and Push Docker Image
 
 on:
   push:
-    tags:
-      - "v*"
   pull_request:
 
 jobs:
@@ -44,7 +42,7 @@ jobs:
           echo "MAJOR=$MAJOR" >> $GITHUB_OUTPUT
           echo "MAJOR_MINOR=$MAJOR.$MINOR" >> $GITHUB_OUTPUT
 
-      - name: Build and push Docker image
+      - name: Build Docker image (and push on tag)
         uses: docker/bake-action@a66e1c87e2eca0503c343edf1d208c716d54b8a8 # v7.1.0
         with:
           source: .
