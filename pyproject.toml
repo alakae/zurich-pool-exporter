@@ -33,7 +33,7 @@ dev = [
 # Dependabot fails with opaque "content not changed" errors if this version is too old.
 # Following official docs:
 # https://docs.astral.sh/uv/concepts/build-backend/#choosing-a-build-backend
-requires = ["uv_build>=0.11.7,<0.12.0"]
+requires = ["uv_build>=0.11.8,<0.12.0"]
 build-backend = "uv_build"
 
 [tool.mypy]
