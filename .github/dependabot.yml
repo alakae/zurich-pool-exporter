@@ -22,7 +22,7 @@ updates:
       - dependency-name: "*"
         update-types: ["version-update:semver-patch"]
     cooldown:
-      default-days: 7
+      default-day
 
   # Compose dependencies
   - package-ecosystem: "docker-compose"
@@ -44,6 +44,8 @@ updates:
       interval: "weekly"
     ignore:
       - dependency-name: "*"
-        update-types: ["version-update:semver-patch"]
+        update-types:
+          - "version-update:semver-patch"
+          - "version-update:semver-minor"
     cooldown:
       default-days: 7
