@@ -46,12 +46,15 @@ FROM gcr.io/distroless/base-debian13@sha256:389cad21f73e4c37b94ffe5b13736d5a92bd
 WORKDIR /code
 
 # Copy the Python version
-COPY --from=builder --chown=python:python /python /python
+COPY --from=builder /python /python
 
 # Copy the application from the builder
-COPY --from=builder --chown=app:app /code/.venv /code/.venv
+COPY --from=builder /code/.venv /code/.venv
 
 # Place executables in the environment at the front of the path
 ENV PATH="/code/.venv/bin:$PATH"
+
+# Run as the distroless nonroot user
+USER 65532:65532
 
 CMD ["pool-exporter"]
