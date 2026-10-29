@@ -2,7 +2,7 @@
 # https://www.joshkasuboski.com/posts/distroless-python-uv/
 
 # Use a Python image with uv pre-installed
-FROM ghcr.io/astral-sh/uv:0.12.5-trixie-slim AS builder
+FROM ghcr.io/astral-sh/uv:0.13.6-trixie-slim AS builder
 WORKDIR /code
 
 # Enable bytecode compilation:
